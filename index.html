@@ -100,18 +100,28 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-</script>async function adminLogin() {
-  const email = prompt("Admin Email दर्ज करें:");
+</script>window.adminLogin = async function () {
+  const email = prompt("Apna Admin Email dalo:");
 
   if (!email) {
-    alert("Email दर्ज करें।");
+    alert("Email khali hai!");
     return;
   }
 
-  const password = prompt("Admin Password दर्ज करें:");
+  const password = prompt("Apna Admin Password dalo:");
 
   if (!password) {
-    alert("Password दर्ज करें।");
+    alert("Password khali hai!");
+    return;
+  }
+
+  if (!window.supabase || !window.supabase.createClient) {
+    alert("Supabase library load nahi hui!");
+    return;
+  }
+
+  if (typeof supabaseClient === "undefined") {
+    alert("Supabase client nahi mila!");
     return;
   }
 
@@ -123,16 +133,13 @@ const supabaseClient = window.supabase.createClient(
       });
 
     if (error) {
-      alert("Login असफल: " + error.message);
+      alert("Login Error: " + error.message);
       return;
     }
 
-    alert("HARSHEON QR Admin Login सफल!");
+    alert("Admin Login Successful!");
 
-    console.log("Admin logged in:", data.user.email);
-
-  } catch (err) {
-    alert("Error: " + err.message);
+  } catch (error) {
+    alert("Error: " + error.message);
   }
-}
-
+};
