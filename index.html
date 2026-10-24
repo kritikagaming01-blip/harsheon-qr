@@ -81,8 +81,7 @@
       <h3>🌐 Links</h3>
       <p>आपके जरूरी लिंक यहाँ दिखाई देंगे।</p>
     </div>
-<button type="button" onclick="alert('Button Working!'); adminLogin();">
-  Admin Login
+<button type="button" onclick="window.adminLogin()"
 </button>
   </main>
 
@@ -100,7 +99,7 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-</script>window.adminLogin = async function () {
+window.adminLogin = async function () {
   const email = prompt("Apna Admin Email dalo:");
 
   if (!email) {
