@@ -82,7 +82,7 @@
       <p>आपके जरूरी लिंक यहाँ दिखाई देंगे।</p>
     </div>
 
-    <button onclick="alert('Admin Login अगले चरण में जोड़ा जाएगा।')">
+    <button onclick="adminLogin()">Admin Login</button>
       Admin Login
     </button>
   </main>
@@ -101,5 +101,39 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-</script>
+</script>async function adminLogin() {
+  const email = prompt("Admin Email दर्ज करें:");
+
+  if (!email) {
+    alert("Email दर्ज करें।");
+    return;
+  }
+
+  const password = prompt("Admin Password दर्ज करें:");
+
+  if (!password) {
+    alert("Password दर्ज करें।");
+    return;
+  }
+
+  try {
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email.trim(),
+        password: password
+      });
+
+    if (error) {
+      alert("Login असफल: " + error.message);
+      return;
+    }
+
+    alert("HARSHEON QR Admin Login सफल!");
+
+    console.log("Admin logged in:", data.user.email);
+
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+}
 
